@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Payment History - Movie Ticket Booking{% endblock %}
+
+{% block content %}
+  <h2>Your Payment History</h2>
+
+  {% if payments %}
+    <table>
+      <thead>
+        <tr>
+          <th>Payment ID</th>
+          <th>Movie Title</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pid, title, amount, status, date in payments %}
+          <tr>
+            <td>{{ pid }}</td>
+            <td>{{ title }}</td>
+            <td>{{ amount }}</td>
+            <td>{{ status }}</td>
+            <td>{{ date.strftime('%Y-%m-%d %H:%M') }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No payments found.</p>
+  {% endif %}
+
+  <p><a href="{{ url_for('index') }}">← Back to Home</a></p>
+{% endblock %}

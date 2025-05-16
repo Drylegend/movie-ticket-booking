@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}Movie Booking{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+</head>
+<body>
+  <div class="background-overlay"></div>
+  <div class="main-content">
+    <nav>
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('payment_history') }}">Payments</a>
+        <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('signup') }}">Sign Up</a>
+      {% endif %}
+    </nav>
+    {% block content %}{% endblock %}
+  </div>
+  <script>
+    window.onload = () => {
+      const fm = document.querySelector('.flash-messages');
+      if (!fm) return;
+      setTimeout(()=> fm.classList.add('fade-out'),3000);
+      fm.addEventListener('transitionend',()=> fm.remove());
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+  <div class="booking-container">
+    <h2>Complete Payment</h2>
+    <form method="POST">
+      <label>Amount:</label>
+      <input type="text" name="amount" value="300.00" readonly>
+
+      <label>Payment Method:</label>
+      <select name="payment_method">
+        <option>Credit Card</option>
+        <option>UPI</option>
+        <option>Net Banking</option>
+      </select>
+
+      <button type="submit">Pay Now</button>
+    </form>
+  </div>
+{% endblock %}

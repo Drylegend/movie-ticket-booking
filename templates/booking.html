@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Book Movie{% endblock %}
+{% block content %}
+  <div class="booking-container">
+    <h2>Book Movie</h2>
+    <form action="" method="POST">
+      <label>Select Showtime:</label>
+      <select name="show_id" required>
+        {% for sid,date,start,end in showtimes %}
+          <option value="{{ sid }}">{{ date }} | {{ start }} - {{ end }}</option>
+        {% endfor %}
+      </select>
+      <label>Select Seat:</label>
+      <select name="seat_id" required>
+        {% for sid,number in seats %}
+          <option value="{{ sid }}">Seat {{ number }}</option>
+        {% endfor %}
+      </select>
+      <button>Proceed</button>
+    </form>
+  </div>
+{% endblock %}

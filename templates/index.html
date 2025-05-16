@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Home - Movie Ticket Booking{% endblock %}
+
+{% block content %}
+
+
+  <h1>Welcome to the Movie Ticket Booking System</h1>
+  <h2>Available Movies</h2>
+
+  <form action="{{ url_for('search') }}" method="POST" class="search-bar">
+    <input type="text" name="query" placeholder="Search by Title or Genre" required>
+    <button type="submit">Search</button>
+  </form>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash-messages">
+        {% for message in messages %}{{ message }}{% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <ul class="movie-list">
+    {% for mid, title in movies %}
+      <li><a class="movie-link" href="{{ url_for('booking', movie_id=mid) }}">{{ title }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <p><a href="{{ url_for('all_movies') }}" class="more-link">View All Movies →</a></p>
+{% endblock %}
