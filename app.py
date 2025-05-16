@@ -1,16 +1,25 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
-from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+import configparser
 
+# Initialize app and MySQL
 app = Flask(__name__)
-app.secret_key = 'utsav1234'
 
-# MySQL config
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'utsav'
-app.config['MYSQL_DB'] = 'movie_booking'
+# Read database configuration
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+# Flask configuration
+app.secret_key = config['flask']['secret_key']
+
+# MySQL configuration
+app.config['MYSQL_HOST'] = config['mysql']['host']
+app.config['MYSQL_USER'] = config['mysql']['user']
+app.config['MYSQL_PASSWORD'] = config['mysql']['password']
+app.config['MYSQL_DB'] = config['mysql']['database']
+
 mysql = MySQL(app)
 
 # Flask-Login setup
